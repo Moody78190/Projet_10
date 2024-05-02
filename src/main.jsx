@@ -1,20 +1,10 @@
-//Router
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './App';
-
-//Style
-import './assets/main.scss';
-
-import {Store } from './Reducers/Store';
-import { Provider } from 'react-redux'
+import store from './Reducers/store' 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store={Store}>
+  <Provider store={store}>
     <App />
   </Provider>
 );
-export default(Store);
-  
-  
- 
-

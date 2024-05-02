@@ -1,14 +1,19 @@
 // store.jsx
 
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authReducer';
+import { setupListeners } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from './apiSlice'; 
+import authReducer from './authSlice';
 
-// Crée le magasin Redux
-const store = configureStore({
+const store = configureStore ({
   reducer: {
     auth: authReducer,
-    // Ajoutez d'autres reducers ici si nécessaire
+    [baseQuery.reducerPath]: baseQuery.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(baseQuery.middleware),
 });
 
-export default(store); // Exportez le magasin en tant qu'export par défaut
+setupListeners(store.dispatch);
+
+export default store; 

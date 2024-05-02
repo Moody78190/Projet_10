@@ -3,23 +3,23 @@ import argentBankLogo from '../../assets/img/argentBankLogo.png'; // Importez l'
 
 const Header = () => {
   return (
-   <header>
-    <nav className="main-nav">
-      <div className="main-nav-logo">
-        {/* Logo */}
-         <NavLink to="/">
-          <img className='main-nav-logo-image' src={argentBankLogo} alt="Logo Argent-Bank" />
-        </NavLink>
-      </div>
+    <header>
+      <nav className="main-nav">
+        <div className="main-nav-logo">
+          {/* Logo */}
+          <NavLink to="/">
+            <img className='main-nav-logo-image' src={argentBankLogo} alt="Logo Argent-Bank" />
+          </NavLink>
+        </div>
 
- 
-    <NavLink to="/Signin" className="main-nav-item" activeClassName="router-link-exact-active">
-      <i className="fa fa-user-circle"></i>
-      Signin
-    </NavLink>
- 
-    </nav>
-   </header>
+
+        <NavLink to="/login" className="main-nav-item">
+          <i className="fa fa-user-circle"></i>
+          Signin
+        </NavLink>
+
+      </nav>
+    </header>
   );
 }
 
