@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { login } from "./apiMiddleware"; 
 
-// Définissez la fonction loginAsync
+
 export const loginAsync = (username, password) => async (dispatch) => {
   try {
     const data = await login(username, password); 
