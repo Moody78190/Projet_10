@@ -1,9 +1,10 @@
 // apiMiddleware.jsx
-import  {baseQuery}  from './apiSlice'; 
+
+import { baseQuery } from './apiSlice'; 
 
 export const login = async (username, password) => {
   
-    
+   
     const response = await baseQuery.fetch('/login', {
       method: 'POST',
       body: JSON.stringify({ username, password }),

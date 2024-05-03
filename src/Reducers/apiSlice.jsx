@@ -1,4 +1,5 @@
 // apiSlice.jsx
+
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 
 export const baseQuery = fetchBaseQuery({
@@ -11,5 +12,3 @@ export const baseQuery = fetchBaseQuery({
         return headers;
     }
 });
-
-export default baseQuery;

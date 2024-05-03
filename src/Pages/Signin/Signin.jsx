@@ -1,16 +1,26 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginAsync } from "../../Reducers/authSlice";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { loginAsync, selectIsAuthenticated } from "../../Reducers/authSlice";
 
 const Signin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const isAuthenticated = useSelector(selectIsAuthenticated); 
   const dispatch = useDispatch();
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    dispatch(loginAsync(username, password));
+    try {
+      await dispatch(loginAsync(username, password));
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
+  }
+
+  
+  if (isAuthenticated) {
+    return <Navigate to="/profile" />;
   }
 
   return (
