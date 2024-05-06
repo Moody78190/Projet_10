@@ -1,26 +1,32 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { loginAsync, selectIsAuthenticated } from "../../Reducers/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../Reducers/apiSlice";
+import { setToken } from "../../Reducers/authSlice";
+
 
 const Signin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const isAuthenticated = useSelector(selectIsAuthenticated); 
+  const [error, setError] = useState(null)
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    try {
-      await dispatch(loginAsync(username, password));
-    } catch (error) {
-      console.error('Error logging in:', error);
-    }
-  }
+    login(username, password)
+      .then(data => {
 
-  
-  if (isAuthenticated) {
-    return <Navigate to="/profile" />;
+        if (!data.body) {
+          throw data
+        }
+
+        dispatch(setToken(data.body.token))
+        navigate('/profile')
+      })
+      .catch(err => {
+        setError(err.message || err)
+      })
   }
 
   return (
@@ -57,6 +63,7 @@ const Signin = () => {
 
           <button className="sign-in-button" type="submit">Sign In</button>
         </form>
+        <div>{error ? error : ''}</div>
       </section>
     </main>
   );

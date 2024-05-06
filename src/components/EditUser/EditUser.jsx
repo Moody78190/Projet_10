@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { selectToken, selectUser } from '../../Reducers/authSlice';
 
 function EditUser() {
    const dispatch = useDispatch();
-   const token = useSelector((state) => state.auth.token);
-   const user = useSelector((state) => state.auth.user);
+   const token = useSelector(selectToken);
+   const user = useSelector(selectUser);
 
    const [showForm, setShowForm] = useState(false);
    const [newUsername, setNewUsername] = useState('');
@@ -13,9 +14,9 @@ function EditUser() {
 
    useEffect(() => {
       if (user) {
-         setNewUsername(user.username);
-         setFirstname(user.firstname);
-         setLastname(user.lastname);
+         setNewUsername(user.userName);
+         setFirstname(user.firstName);
+         setLastname(user.lastName);
       }
    }, [user]);
 
@@ -72,14 +73,14 @@ function EditUser() {
          {showForm && (
             <form className="account-form" onSubmit={handleSubmit}>
                <label>First Name:</label>
-               <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
-               
+               <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} disabled />
+
                <label>Last Name:</label>
-               <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} />
-               
+               <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} disabled />
+
                <label>New Username:</label>
                <input type="text" value={newUsername} onChange={handleInputChange} required />
-               
+
                <button type="submit" className='transaction-button button'>Confirm</button>
             </form>
          )}
