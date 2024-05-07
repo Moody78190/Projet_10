@@ -27,3 +27,14 @@ export const getUser = token => {
         .then(data => data)
 }
 
+export const newUserName = async (newUsername, token) => {
+    const response = await fetch('http://localhost:3001/api/v1/user/profile', {
+        method: 'post',
+        body: JSON.stringify({ newUsername }),
+        headers: { 
+            "Content-Type": "application/json", 
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    return await response.json();
+};

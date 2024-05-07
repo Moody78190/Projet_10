@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectToken, selectUser } from '../../Reducers/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../Reducers/authSlice';
+import { newUserName } from "../../Reducers/apiSlice"; 
 
 function EditUser() {
    const dispatch = useDispatch();
-   const token = useSelector(selectToken);
-   const user = useSelector(selectUser);
+   const user = useSelector((state) => state.auth.user);
+   const token = useSelector((state) => state.auth.token); // Ajoutez ceci pour obtenir le token depuis le state Redux
 
    const [showForm, setShowForm] = useState(false);
    const [newUsername, setNewUsername] = useState('');
@@ -14,9 +15,9 @@ function EditUser() {
 
    useEffect(() => {
       if (user) {
-         setNewUsername(user.userName);
-         setFirstname(user.firstName);
-         setLastname(user.lastName);
+         setNewUsername(user.username || ''); 
+         setFirstname(user.firstname || ''); 
+         setLastname(user.lastname || ''); 
       }
    }, [user]);
 
@@ -32,29 +33,22 @@ function EditUser() {
       event.preventDefault();
 
       try {
-         const response = await fetch('http://localhost:3001/api/v1/user/profile', {
-            method: 'PUT',
-            headers: {
-               'Content-Type': 'application/json',
-               Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ userName: newUsername }),
-         });
-
+         const response = await newUserName(newUsername, token); // Ajoutez le token ici
          if (response.ok) {
+            dispatch(setToken(response.token)); 
             dispatch({
                type: 'SET_USER',
                payload: {
                   username: newUsername,
-                  firstname: firstname,
-                  lastname: lastname,
+                  firstname,
+                  lastname,
                },
             });
          } else {
             console.error('Erreur lors de l envoi du nouveau nom d utilisateur');
          }
       } catch (error) {
-         console.error('Erreur lors de la requête :', error);
+         console.error('Erreur lors de la requête');
       }
 
       setNewUsername('');
