@@ -1,6 +1,10 @@
 .bg-dark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #12002b;
-  padding-bottom: 2rem;
+  padding-bottom: 5rem;
+  
 
   .account {
     display: flex;

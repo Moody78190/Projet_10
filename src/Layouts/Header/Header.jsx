@@ -7,38 +7,42 @@ const Header = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch(logOut());
-  };
-
-  // Extraire les valeurs de l'objet `user`
-  const { firstName, lastName } = user || {};
-
   return (
     <header>
       <nav className="main-nav">
-        <div className="main-nav-logo">
-          {/* Logo */}
-          <NavLink to="/">
-            <img
-              className="main-nav-logo-image"
-              src={argentBankLogo}
-              alt="Logo Argent-Bank"
-            />
+
+        {/* Logo */}
+        <NavLink className="main-nav-logo" to="/">
+          <img
+            className="main-nav-logo-image"
+            src={argentBankLogo}
+            alt="Logo Argent-Bank"
+          />
+        </NavLink>
+
+        <div>
+          <NavLink
+            className="main-nav-item"
+            to={user ? '/profile' : '/login'}
+          >
+            <i className="fa fa-user-circle"></i>
+            {user ? user.userName : 'Sign In'}
           </NavLink>
+          {user ? (
+            <NavLink
+              className="main-nav-item"
+              to="/"
+              onClick={() => dispatch(logOut())}
+            >
+              <i className="fa fa-sign-out"></i>
+              Sign Out
+            </NavLink>
+          ) : (
+            <></>
+          )}
         </div>
 
-        <NavLink
-          to={user ? "/" : "/login"}
-          className="main-nav-item"
-          onClick={user ? handleLogout : null}
-        >
-          <p className="main-nav-username">
-            {user ? `${firstName} ${lastName}` : ""}
-          </p>
-          <i className="fa fa-user-circle"></i>
-          {user ? "Logout" : "Signin"}
-        </NavLink>
+
       </nav>
     </header>
   );
