@@ -1,7 +1,7 @@
-import iconChat from './../assets/img/iconChat.png';
-import iconMoney from './../assets/img/iconMoney.png';
-import iconSecurity from './../assets/img/iconSecurity.png';
-import PropTypes from 'prop-types';
+import iconChat from "./../assets/img/iconChat.webp";
+import iconMoney from "./../assets/img/iconMoney.webp";
+import iconSecurity from "./../assets/img/iconSecurity.webp";
+import PropTypes from "prop-types";
 
 const Feature = ({ icon, title, description }) => {
   return (

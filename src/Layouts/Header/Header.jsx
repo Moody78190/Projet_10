@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import argentBankLogo from "../../assets/img/argentBankLogo.png";
+import argentBankLogo from "../../assets/img/argentBankLogo.webp";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../Reducers/authSlice";
 
@@ -10,7 +10,6 @@ const Header = () => {
   return (
     <header>
       <nav className="main-nav">
-
         {/* Logo */}
         <NavLink className="main-nav-logo" to="/">
           <img
@@ -21,12 +20,9 @@ const Header = () => {
         </NavLink>
 
         <div>
-          <NavLink
-            className="main-nav-item"
-            to={user ? '/profile' : '/login'}
-          >
+          <NavLink className="main-nav-item" to={user ? "/profile" : "/login"}>
             <i className="fa fa-user-circle"></i>
-            {user ? user.userName : 'Sign In'}
+            {user ? user.userName : "Sign In"}
           </NavLink>
           {user ? (
             <NavLink
@@ -41,8 +37,6 @@ const Header = () => {
             <></>
           )}
         </div>
-
-
       </nav>
     </header>
   );

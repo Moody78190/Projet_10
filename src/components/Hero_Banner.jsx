@@ -1,5 +1,3 @@
-
-
 const Hero_Banner = () => {
   return (
     <div className="hero">
